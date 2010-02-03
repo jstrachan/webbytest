@@ -18,6 +18,8 @@ e.g. try from the console
     
 this should generate the testresults.html file you can then browse in a browser. (Note the links won't work unless you happen to have opened the [scalate](http://scalate.fusesource.org/) project in your IDE - and you have the  [Atlassian IDE Connector](http://www.atlassian.com/software/ideconnector/) installed in your IDE :)
 
+The idea here is we could pipe the output of sbt into the webbytest.Main to generate the HTML reports as test cases run.
+
 Going forward
 -------------
 Ideally we'd configure WebbyTest as a test renderer of sbt... I tried taking a look but by sbt foo was not strong enough :(
