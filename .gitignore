@@ -1,0 +1,10 @@
+*.log
+.idea
+.idea/*
+*.iml
+target
+lib_managed
+out
+project/boot
+project/build/target
+testresults.html

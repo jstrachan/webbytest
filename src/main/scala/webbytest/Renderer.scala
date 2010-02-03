@@ -18,7 +18,7 @@ class Renderer {
       </head>
       <body>
         <h1 id="qunit-header">
-          SbtWeb
+          WebbyTest
         </h1>
           <h2 id="qunit-banner" class="qunit-fail"/>
         <h2 id="qunit-userAgent">

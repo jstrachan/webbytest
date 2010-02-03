@@ -77,9 +77,11 @@ class TestFilter {
 
         // now lets see if its a test case
 
-        if (line.contains("== test-start ==")) {
-          reset
-          testsStarted = true
+        if (line.matches(".*== .* test-start ==.*")) {
+          if (!testsStarted) {
+            reset
+            testsStarted = true
+          }
         }
         else {
           if (line.matches(regexTestCompleted)) {
@@ -130,6 +132,8 @@ class TestFilter {
       }
       println()
     }
+
+    completed
   }
 
   /**We may do nothing at this step if we pull the view of current results in a web app */
