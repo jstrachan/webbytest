@@ -25,10 +25,9 @@ class Renderer {
   def html(suite: Seq[TestClass]): Seq[Node] = {
     <html>
       <head>
-        {css}{jquery}
-        <script>
-          {javascript}
-        </script>
+        {css}{jquery}<script>
+        {javascript}
+      </script>
       </head>
       <body>
         <h1 id="qunit-header">
@@ -71,9 +70,50 @@ class Renderer {
         {t.testName}
       </strong>
       <ul style={displayStyle(t)}>
-        {t.output.flatMap {htmlOutput(_)}}
+        {t.output.flatMap {htmlOutput(_)}}{htmlError(t.error)}
       </ul>
     </li>
+  }
+
+  def htmlError(error: Throwable): Seq[Node] = {
+    if (error == null) {
+      Text("")
+    }
+    else {
+      <li>
+        <b>
+          {error.getMessage}
+        </b>
+        {error.getStackTrace flatMap {htmlStackTrace(_)}}
+        {errorCausedBy(error)}
+      </li>
+    }
+  }
+
+  def htmlStackTrace(s: StackTraceElement): Seq[Node] = {
+    val fullFileName = s.getFileName
+    val methodCall = s.getClassName + "." + s.getMethodName + "(" + s.getFileName + ":" + s.getLineNumber + ") "
+
+    <li>{methodCall} <img class="ide-icon tb_right_mid"
+                   id={"ide-" + s.hashCode}
+                   title={"Open file " + fullFileName + " in IDE"}
+                   onclick={"this.src='http://localhost:51235/file?file=" + fullFileName + "&line=" + s.getLineNumber + "&id=' + Math.floor(Math.random()*1000);"}
+                   alt="Open in IDE"
+                   src={"http://localhost:" + idePluginPort + "/icon"}/>
+      </li>
+  }
+
+  def errorCausedBy(error: Throwable): Seq[Node] = {
+    val cause = error.getCause
+    if (cause == null || cause == error) {
+      Text("")
+    }
+    else {
+      <li>
+        Caused By
+        <quote>{htmlError(cause)}</quote>
+      </li>
+    }
   }
 
   def htmlOutput(t: String): Seq[Node] = {
@@ -124,10 +164,10 @@ class Renderer {
   }
 
   def jquery = if (useLocalFiles) {
-      <script src="jquery-latest.js" type="text/javascript" />
+      <script src="jquery-latest.js" type="text/javascript"/>
   }
   else {
-    <script src="http://code.jquery.com/jquery-latest.js"/>
+      <script src="http://code.jquery.com/jquery-latest.js"/>
   }
 
   def javascript = """
