@@ -1,11 +1,27 @@
 package webbytest
 
+import webbytest.parser._
+import org.scalatest.{ResourcefulReporter}
 import xml.{Text, Node}
+import org.scalatest.events.{RunStarting, Event}
 
-class Renderer {
+/**
+ * @version $Revision: 1.1 $
+ */
+
+class ScalaTestHtmlReporter(val fileName: String) extends ResourcefulReporter {
   var idePluginPort = 51235
   val logParser = new OutputParser()
 
+  def apply(event: Event): Unit = {
+    event match {
+      case starting: RunStarting => println("RunStarting: " + starting)
+      case e => println("" + e)
+    }
+  }
+
+  def dispose() = {
+  }
 
   def html(suite: Seq[TestClass]): Seq[Node] = {
     <html>
@@ -84,12 +100,6 @@ class Renderer {
                    alt="Open in IDE"
                    src={"http://localhost:" + idePluginPort + "/icon"}/> :: Nil
 
-    /*
-        case s: StackTrace => Text(s.methodCall + "(") ::
-                <a href={sourceUrl(s.packageName, s.fileName, s.line).trim()}>{s.fileName}</a> ::
-                Text(":" + s.line + ")") :: Nil
-
-    */
     case w: WrapLine => (Text(w.prefix + " ") :: Nil) ++ renderLine(w.line) ++ (Text(" " + w.postfix) :: Nil)
 
     case l: LogLine => <span class={l.level}>[
@@ -114,7 +124,7 @@ class Renderer {
       $(e.target).next('ul').toggle();
       return false;
     });
-  });  
+  });
 """
 
   def displayStyle(t: TestResult) = if (t.failed) {""} else {"display: none;"}
@@ -127,4 +137,6 @@ class Renderer {
 
     "http://localhost:" + idePluginPort + "/file?file=" + packageNameAndSlash + fileName + "&line=" + line.toString.trim
   }
+
+
 }

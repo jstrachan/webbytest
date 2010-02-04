@@ -1,4 +1,4 @@
-package webbytest
+package webbytest.parser
 
 import collection.mutable.ListBuffer
 import java.io._
@@ -33,7 +33,7 @@ trait TestResult {
   /**@returns the CSS style of whether this passed or failed */
 }
 
-case class TestCase(testName: String, output: Seq[String], status: Boolean) extends TestResult {
+case class TestCase(testName: String, output: Seq[String], status: Boolean, error: Throwable) extends TestResult {
 }
 
 case class TestClass(className: String) extends TestResult {
@@ -107,11 +107,11 @@ class TestFilter {
 
                   case _ => firstMatchingGroup(regexTestPassed, line) match {
                     case Some(n) =>
-                      add(TestCase(testName, output, true))
+                      add(TestCase(testName, output, true, null))
 
                     case _ => firstMatchingGroup(regexTestFailed, line) match {
                       case Some(n) =>
-                        add(TestCase(testName, output, false))
+                        add(TestCase(testName, output, false, null))
 
                       case _ => output += line
                     }
@@ -139,16 +139,7 @@ class TestFilter {
   /**We may do nothing at this step if we pull the view of current results in a web app */
   def completed: Unit = {
     // lets write the HTML
-    val out = new FileWriter(fileName)
-    try {
-      val html = renderer.html(results)
-      for (node <- html) {
-        out.write(node.toString())
-      }
-    }
-    finally {
-      out.close
-    }
+    renderer.writeTo(fileName, results)
   }
 
 

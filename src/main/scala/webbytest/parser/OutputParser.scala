@@ -1,4 +1,4 @@
-package webbytest
+package webbytest.parser
 
 import scala.util.parsing.combinator._
 import java.io.Reader

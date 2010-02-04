@@ -1,5 +1,7 @@
 package webbytest
 
+import webbytest.parser._
+
 import org.scalatest.junit.JUnitRunner
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
