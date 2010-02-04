@@ -97,7 +97,7 @@ class Renderer {
     <li>{methodCall} <img class="ide-icon tb_right_mid"
                    id={"ide-" + s.hashCode}
                    title={"Open file " + fullFileName + " in IDE"}
-                   onclick={"this.src='http://localhost:51235/file?file=" + fullFileName + "&line=" + s.getLineNumber + "&id=' + Math.floor(Math.random()*1000);"}
+                   onclick={"this.src='http://localhost:51235/file?file=" + fullFileName + "&line=" + idePluginLine(s.getLineNumber) + "&id=' + Math.floor(Math.random()*1000);"}
                    alt="Open in IDE"
                    src={"http://localhost:" + idePluginPort + "/icon"}/>
       </li>
@@ -134,7 +134,7 @@ class Renderer {
               <img class="ide-icon tb_right_mid"
                    id={"ide-" + s.hashCode}
                    title={"Open file " + fullFileName + " in IDE"}
-                   onclick={"this.src='http://localhost:51235/file?file=" + fullFileName + "&line=" + s.line + "&id=' + Math.floor(Math.random()*1000);"}
+                   onclick={"this.src='http://localhost:51235/file?file=" + fullFileName + "&line=" + idePluginLine(s.line) + "&id=' + Math.floor(Math.random()*1000);"}
                    alt="Open in IDE"
                    src={"http://localhost:" + idePluginPort + "/icon"}/> :: Nil
 
@@ -156,6 +156,21 @@ class Renderer {
   }
 
 
+  /**
+   * The Atlassian IDE plugin seems to highlight the line after the actual line number, so lets subtract one
+   */
+  def idePluginLine(line: Int) = if (line > 1) line - 1 else line
+
+  def idePluginLine(line: String) = {
+    try {
+      val i = Integer.parseInt(line)
+      "" + i
+    }
+    catch {
+      case _ =>line
+    }
+  }
+  
   def css = if (useLocalFiles) {
       <link media="screen" type="text/css" href="qunit.css" rel="stylesheet"/>
   }
