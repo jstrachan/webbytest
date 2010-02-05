@@ -44,13 +44,23 @@ Then in your build file in, say, *project/build/MyProject.scala* (call it whatev
     }
 
     
-Now this should generate the *target/tests.html* file whenever you run the tests.
+Now this should generate the *target/scala_XXXX/tests.html* file whenever you run the tests.
 
 If you use the continuous testing feature in sbt, your html file will refresh each time you edit source code...
 
     sbt
     ~ test-quick
 
+
+Using the HTML Test Report
+-------------------------
+Once you open the test reports file in your browser you should be able to expand/collapse the test classes, test cases and stack traces.
+
+By default the failing tests are open; as they are the things you typically want to see first. Also to avoid noise the stack traces are collapsed by default.
+
+
+When you expand a failing test and see a stack trace you should be able to click on the icon next to each stack trace to open the file at the line which threw the exception
+(assuming you have the [Atlassian IDE Connector](http://www.atlassian.com/software/ideconnector/) installed and the project open in your IDE).
 
 Example project
 ---------------
@@ -65,7 +75,7 @@ For example to run the tests and view the HTML report try this
     update
     test
     exit
-    open scalate-core/target/tests.html
+    open scalate-core/target/scala_2.8.0.Beta1/tests.html
 
 
 License
