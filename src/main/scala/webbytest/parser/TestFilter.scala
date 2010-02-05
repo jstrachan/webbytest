@@ -62,6 +62,7 @@ class TestFilter {
   var testName: String = "n/a"
   var results = new ListBuffer[TestClass]()
   var renderer = new Renderer()
+  var start: Long = _
 
   def run(input: InputStream): Unit = {
     run(new BufferedReader(new InputStreamReader(input)))
@@ -146,11 +147,13 @@ class TestFilter {
   /**We may do nothing at this step if we pull the view of current results in a web app */
   def completed: Unit = {
     // lets write the HTML
-    renderer.writeTo(fileName, results)
+    val elapsed = System.currentTimeMillis - start
+    renderer.writeTo(fileName, results, elapsed)
   }
 
 
   def reset = {
+    start = System.currentTimeMillis
     testClass = TestClass("n/a")
     testName = "n/a"
     results = new ListBuffer[TestClass]()

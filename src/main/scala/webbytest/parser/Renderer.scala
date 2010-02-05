@@ -9,10 +9,10 @@ class Renderer {
   var useLocalFiles = false
 
 
-  def writeTo(fileName: String, results: Seq[TestClass]) = {
+  def writeTo(fileName: String, results: Seq[TestClass], elapsed: Long) = {
     val out = new FileWriter(fileName)
     try {
-      val nodes = html(results)
+      val nodes = html(results, elapsed)
       for (node <- nodes) {
         out.write(node.toString())
       }
@@ -22,7 +22,7 @@ class Renderer {
     }
   }
 
-  def html(suite: Seq[TestClass]): Seq[Node] = {
+  def html(suite: Seq[TestClass], elapsed: Long): Seq[Node] = {
     var total = 0
     var passed = 0
     var failed = 0
@@ -53,7 +53,7 @@ class Renderer {
           {suite.flatMap {html(_)}}
         </ol>
         <p id="qunit-testresult" class="result">
-          Tests completed in 8 milliseconds.<br/>
+          Tests completed in {elapsed} milliseconds.<br/>
           <span class="passed">{passed}</span>
           tests of
           <span class="total">{total}</span>

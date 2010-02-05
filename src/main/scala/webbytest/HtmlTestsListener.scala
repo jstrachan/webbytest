@@ -12,8 +12,9 @@ import org.scalatools.testing.{Result => TestingResult}
 class HtmlTestsListener(var fileName: String) extends TestsListener
 {
   var results = new ListBuffer[TestClass]()
-  var testClass: TestClass = _
   var renderer = new Renderer()
+  var testClass: TestClass = _
+  var start: Long = _
 
   def startGroup(name: String) = {
     println("XXX> startGroup " + name)
@@ -51,11 +52,15 @@ class HtmlTestsListener(var fileName: String) extends TestsListener
 
   def doInit = {
     results.clear
+    start = System.currentTimeMillis
   }
 
   def doComplete(finalResult: Result.Value) = {
     println("generating HTML report to: " + fileName)
-    renderer.writeTo(fileName, results)
+
+    val elapsed = System.currentTimeMillis - start
+    renderer.writeTo(fileName, results, elapsed)
+
 
     results.clear
   }
