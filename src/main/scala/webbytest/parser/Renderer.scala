@@ -70,7 +70,7 @@ class Renderer {
         {c.className}
         <b style="color:black;">(<b class="fail">{c.failedCount}</b>, <b class="pass">{c.passedCount}</b>, {c.totalCount})</b>
       </strong>
-      <ol style={displayStyle(c)}>
+      <ol style={displayTestClassStyle(c)}>
         {c.results.flatMap {html(_)}}
       </ol>
     </li>
@@ -81,7 +81,7 @@ class Renderer {
       <strong>
         {t.testName}
       </strong>
-      <ul style={displayStyle(t)}>
+      <ul style={displayTestCaseStyle(t)}>
         {t.output.flatMap {htmlOutput(_)}}{htmlError(t.error)}
       </ul>
     </li>
@@ -212,7 +212,8 @@ class Renderer {
   });  
 """
 
-  def displayStyle(t: TestResult) = if (t.failed) {""} else {"display: none;"}
+  def displayTestClassStyle(t: TestResult) = if (t.failed) {""} else {"display: none;"}
+  def displayTestCaseStyle(t: TestResult) = "display: none;"
 
   def statusStyle(failed: Boolean) = if (failed) {"fail"} else {"pass"}
 
