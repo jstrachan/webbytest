@@ -40,6 +40,13 @@ case class TestClass(className: String) extends TestResult {
   val results = new ListBuffer[TestCase]()
 
   def status = !results.exists(_.failed)
+
+
+  def totalCount: Int = results.size
+
+  def passedCount: Int = results.filter {_.status}.size
+
+  def failedCount: Int = totalCount - passedCount
 }
 
 class TestFilter {

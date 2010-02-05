@@ -56,3 +56,16 @@ Example project
 ---------------
 
 To see an example project using WebbyTest try the [scalate project](http://scalate.fusesource.org/) project, you can get the [source code here](http://scalate.fusesource.org/source.html)
+
+For example to run the tests and view the HTML report try this
+
+    git clone git://github.com/scalate/scalate.git
+    cd scalate
+    ./sbt
+    update
+    test
+    exit
+    open scalate-core/target/tests.html
+
+
+

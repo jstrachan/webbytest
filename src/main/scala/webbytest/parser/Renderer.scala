@@ -23,9 +23,20 @@ class Renderer {
   }
 
   def html(suite: Seq[TestClass]): Seq[Node] = {
+    var total = 0
+    var passed = 0
+    var failed = 0
+    for (c <- suite) {
+      total += c.totalCount
+      passed += c.passedCount
+      failed += c.failedCount
+    }
+
     <html>
       <head>
-        {css}{jquery}<script>
+        {css}
+        {jquery}
+        <script>
         {javascript}
       </script>
       </head>
@@ -43,10 +54,10 @@ class Renderer {
         </ol>
         <p id="qunit-testresult" class="result">
           Tests completed in 8 milliseconds.<br/>
-          <span class="passed">5</span>
+          <span class="passed">{passed}</span>
           tests of
-          <span class="total">6</span>
-          passed, <span class="failed">1</span>
+          <span class="total">{total}</span>
+          passed, <span class="failed">{failed}</span>
           failed.
         </p>
       </body>
@@ -56,7 +67,8 @@ class Renderer {
   def html(c: TestClass): Seq[Node] = {
     <li class={statusStyle(c.failed)}>
       <strong>
-        {c.className}<b style="color: black;">(0, 2, 2)</b>
+        {c.className}
+        <b style="color:black;">(<b class="fail">{c.failedCount}</b>, <b class="pass">{c.passedCount}</b>, {c.totalCount})</b>
       </strong>
       <ol style={displayStyle(c)}>
         {c.results.flatMap {html(_)}}
