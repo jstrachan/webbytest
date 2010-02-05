@@ -1,7 +1,7 @@
 WebbyTest
 =========
 
-WebbyTest is a plugin for [sbt]() which generates nice HTML reports of tests run, with stack traces transformed
+WebbyTest is a plugin for [sbt]() which generates nice HTML reports of tests results, with stack traces transformed
 into nice HTML links which are then clickable.
 
 Clicking on the icon next to a line in the stack trace then opens the
@@ -29,12 +29,12 @@ First you need to create a file in *project/plugins/Plugins.scala*
 
     import sbt._
 
-    class Plugins(info: ProjectInfo) extends PluginDefinition(info){
+    class Plugins(info: ProjectInfo) extends PluginDefinition(info) {
 
       val webbytest = "org.fusesource" % "webbytest" % "1.0-SNAPSHOT"
     }
 
-Then in your build file (in *project/build/MyProject.scala* (call it whatever class name you like)
+Then in your build file in, say, *project/build/MyProject.scala* (call it whatever class name you like) you use the *HtmlTestsProject* trait
 
 
     import sbt._
@@ -44,7 +44,12 @@ Then in your build file (in *project/build/MyProject.scala* (call it whatever cl
     }
 
     
-this should generate the *target/tests.html* file which you can then browse in a browser.
+Now this should generate the *target/tests.html* file whenever you run the tests.
+
+If you use the continuous testing feature in sbt, your html file will refresh each time you edit source code...
+
+    sbt
+    ~ test-quick
 
 
 Example project
