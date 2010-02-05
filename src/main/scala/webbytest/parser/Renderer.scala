@@ -50,10 +50,6 @@ class Renderer {
     <html>
       <head>
         {css}
-        {jquery}
-        <script>
-        {javascript}
-      </script>
       </head>
       <body>
         <h1 id="qunit-header">
@@ -75,6 +71,11 @@ class Renderer {
           passed, <span class="failed">{failed}</span>
           failed.
         </p>
+
+        {jquery}
+        <script>
+        {javascript}
+        </script>
       </body>
     </html>
   }
