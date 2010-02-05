@@ -1,5 +1,4 @@
 *.log
-*.iml
 target
 lib_managed
 out

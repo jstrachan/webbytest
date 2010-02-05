@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/sbtweb.iml" filepath="$PROJECT_DIR$/sbtweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webbytest.iml" filepath="$PROJECT_DIR$/webbytest.iml" />
     </modules>
   </component>
 </project>
