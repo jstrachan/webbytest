@@ -28,10 +28,10 @@ class WebbyTest(info: ProjectInfo) extends PluginProject(info) { // DefaultProje
   //val sbt     = "org.scala-tools.sbt" % "sbt" % "sbt_2.7.7-0.5.6"
   //val sbtTest = "org.scala-tools.sbt" % "test" % "0.5.6"
 
+  val scalaToolsRepo = "ScalaTools Repository" at "http://scala-tools.org/repo-releases/"
+
   // use local maven repo
   val mavenLocal = "Local Maven Repository" at "file://" + Path.userHome + "/.m2/repository"
-
-  val scalaToolsRepo = "ScalaTools Repository" at "http://scala-tools.org/repo-releases/"
 
 
   // publishing
