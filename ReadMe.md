@@ -1,25 +1,51 @@
 WebbyTest
 =========
 
-WebbyTest is a little experimental parser of [sbt](http://code.google.com/p/simple-build-tool/) output which can render test results nicely, with stack traces transformed into nice HTML links which are then clickable - which then opens the source file in your IDE if you have the [Atlassian IDE Connector](http://www.atlassian.com/software/ideconnector/) installed. (For background in how this works see [this thread](http://www.jetbrains.net/devnet/message/5254292#5254292))
+WebbyTest is a plugin for [sbt]() which generates nice HTML reports of tests run, with stack traces transformed
+into nice HTML links which are then clickable.
 
-The idea being we can use sbt to run/compile/test our code continuously, then we get a nice web page we can refresh (or which ideally will auto-refresh) showing a summary of errors, which we can then easily click on to see actual failures.
+Clicking on the icon next to a line in the stack trace then opens the
+source file in your IDE if you have the [Atlassian IDE Connector](http://www.atlassian.com/software/ideconnector/) installed. (For background in how this works see [this thread](http://www.jetbrains.net/devnet/message/5254292#5254292))
 
-Have a play
------------
-To try it out, try running the webbytest.Main on some output, or piping the output of sbt into it.
+The idea is that we can use sbt to run/compile/test our code continuously, then we get a nice web page we can refresh (or which ideally will auto-refresh) showing a summary of errors, which we can then easily click on to see actual failures.
 
-e.g. try from the console
+Building WebbyTest locally
+--------------------------
+
+First you need to build it locally (we'll have it hosted on a maven repo soon!)
 
     ./sbt
-    run sampleLog.txt
-    quit
-    open testresults.html 
+    update
+    publish-local
+
+
+Using WebbyTest in your sbt build
+---------------------------------
+
+First you need to create a file in *project/plugins/Plugins.scala*
+
+
+    import sbt._
+
+    class Plugins(info: ProjectInfo) extends PluginDefinition(info){
+
+      val webbytest = "org.fusesource" % "webbytest" % "1.0-SNAPSHOT"
+    }
+
+Then in your build file (in *project/build/MyProject.scala* (call it whatever class name you like)
+
+
+    import sbt._
+    import webbytest.HtmlTestsProject
+
+    class MyProject(info: ProjectInfo) extends DefaultProject(info) with HtmlTestsProject {
+    }
+
     
-this should generate the testresults.html file you can then browse in a browser. (Note the links won't work unless you happen to have opened the [scalate](http://scalate.fusesource.org/) project in your IDE - and you have the  [Atlassian IDE Connector](http://www.atlassian.com/software/ideconnector/) installed in your IDE :)
+this should generate the *target/tests.html* file which you can then browse in a browser.
 
-The idea here is we could pipe the output of sbt into the webbytest.Main to generate the HTML reports as test cases run.
 
-Going forward
--------------
-Ideally we'd configure WebbyTest as a test renderer of sbt... I tried taking a look but by sbt foo was not strong enough :(
+Example project
+---------------
+
+To see an example project using WebbyTest try the [scalate project](http://scalate.fusesource.org/) project, you can get the [source code here](http://scalate.fusesource.org/source.html)

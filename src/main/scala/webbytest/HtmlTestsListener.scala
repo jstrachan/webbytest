@@ -9,7 +9,7 @@ import org.scalatools.testing.{Result => TestingResult}
 /**
  * @version $Revision : 1.1 $
  */
-class HtmlTestsListener(val fileName: String) extends TestsListener
+class HtmlTestsListener(var fileName: String) extends TestsListener
 {
   var results = new ListBuffer[TestClass]()
   var testClass: TestClass = _
@@ -23,12 +23,9 @@ class HtmlTestsListener(val fileName: String) extends TestsListener
   }
 
   def testEvent(event: TestEvent) = {
-
     event match {
-    //case s: ScalaTestEvent => println("XXX> ScalaTestEvent: " + s)
       case e =>
         val detail = e.detail
-        //println("XXX> event: " + e + " with result: " + e.result) // + " detail: " + detail)
 
         for (i <- detail) {
           i match {
@@ -46,12 +43,10 @@ class HtmlTestsListener(val fileName: String) extends TestsListener
   }
 
   def endGroup(name: String, t: Throwable) = {
-    //println("XXX> endGroup(" + name + " t" + t)
   }
 
 
   def endGroup(name: String, result: Result.Value) = {
-    //println("XXX> endGroup(" + name + " result: " + result)
   }
 
   def doInit = {
@@ -59,8 +54,6 @@ class HtmlTestsListener(val fileName: String) extends TestsListener
   }
 
   def doComplete(finalResult: Result.Value) = {
-    //println("XXX> onComplete " + finalResult)
-
     println("generating HTML report to: " + fileName)
     renderer.writeTo(fileName, results)
 
