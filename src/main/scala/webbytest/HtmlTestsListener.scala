@@ -32,8 +32,6 @@ class HtmlTestsListener(var fileName: String) extends TestsListener
   var start: Long = _
 
   def startGroup(name: String) = {
-    println("XXX> startGroup " + name)
-
     testClass = TestClass(name)
     results.append(testClass)
   }
@@ -75,7 +73,6 @@ class HtmlTestsListener(var fileName: String) extends TestsListener
 
     val elapsed = System.currentTimeMillis - start
     renderer.writeTo(fileName, results, elapsed)
-
 
     results.clear
   }

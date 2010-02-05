@@ -23,8 +23,15 @@ import sbt._
 trait HtmlTestsProject extends DefaultProject {
   //this : DefaultProject =>
 
+  def htmlTestReportFileName = {
+    //val dir = projectName + "/" + outputDirectoryName + "/"
+    val dir = outputPath.asFile.getCanonicalPath + "/"
+    println("Using output path of: " + dir)
+    dir + "tests.html"
+  }
+
   override def testListeners: Seq[TestReportListener] = {
-    val htmlTestListener = new HtmlTestsListener("scalate-core/target/tests.html")
+    val htmlTestListener = new HtmlTestsListener(htmlTestReportFileName)
     (htmlTestListener :: Nil) ++ super.testListeners
   }
 }

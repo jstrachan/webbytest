@@ -31,10 +31,14 @@ class WebbyTest(info: ProjectInfo) extends PluginProject(info) { // DefaultProje
   // use local maven repo
   val mavenLocal = "Local Maven Repository" at "file://" + Path.userHome + "/.m2/repository"
 
+  val scalaToolsRepo = "ScalaTools Repository" at "http://scala-tools.org/repo-releases/"
+
 
   // publishing
+/*
   override def managedStyle = ManagedStyle.Maven
 
   //val publishTo = "WebbyTest Repo" at "dav:http://fusesource.com/forge/dav/webbytest/repo/release"
   val publishTo = "WebbyTest Repo" at "dav:http://fusesource.com/forge/dav/webbytest/repo/snapshot"
+*/
 }

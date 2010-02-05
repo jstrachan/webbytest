@@ -97,7 +97,8 @@ class Renderer {
         {t.testName}
       </strong>
       <ul style={displayTestCaseStyle(t)}>
-        {t.output.flatMap {htmlOutput(_)}}{htmlError(t.error)}
+        {t.output.flatMap {htmlOutput(_)}}
+        {htmlError(t.error)}
       </ul>
     </li>
   }
@@ -107,13 +108,9 @@ class Renderer {
       Text("")
     }
     else {
-      <li>
-        <b>
-          {error.getMessage}
-        </b>
-        {error.getStackTrace flatMap {htmlStackTrace(_)}}
-        {errorCausedBy(error)}
-      </li>
+      val message = <strong>{error.getMessage}</strong> :: Nil
+      val output = error.getStackTrace flatMap {htmlStackTrace(_)}
+      message ++ output ++ errorCausedBy(error)
     }
   }
 
@@ -136,10 +133,10 @@ class Renderer {
       Text("")
     }
     else {
-      <li>
-        Caused By
-        <quote>{htmlError(cause)}</quote>
-      </li>
+      <ul>
+        <strong>Caused By</strong>
+        {htmlError(cause)}
+      </ul>
     }
   }
 
@@ -197,7 +194,7 @@ class Renderer {
       case _ =>line
     }
   }
-  
+
   def css = if (useLocalFiles) {
       <link media="screen" type="text/css" href="qunit.css" rel="stylesheet"/>
   }
@@ -229,6 +226,7 @@ class Renderer {
 
   def displayTestClassStyle(t: TestResult) = if (t.failed) {""} else {"display: none;"}
   def displayTestCaseStyle(t: TestResult) = "display: none;"
+  def displayCausedByStyle(t: TestResult) = "display: none;"
 
   def statusStyle(failed: Boolean) = if (failed) {"fail"} else {"pass"}
 
