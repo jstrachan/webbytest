@@ -5,3 +5,5 @@ out
 project/boot
 project/build/target
 testresults.html
+.idea/uiDesigner.xml
+.idea/workspace.xml
