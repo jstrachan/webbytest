@@ -68,4 +68,11 @@ For example to run the tests and view the HTML report try this
     open scalate-core/target/tests.html
 
 
+License
+-------
+
+WebbyTest is released under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0) 
+a copy of which is included in the source as [LICENSE.txt](http://github.com/jstrachan/webbytest/blob/master/LICENSE.txt)
+
+
 
