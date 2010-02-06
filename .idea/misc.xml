@@ -6,6 +6,30 @@
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
+  <component name="FacetAutodetectingManager">
+    <autodetection-disabled>
+      <facet-type id="web">
+        <modules>
+          <module name="webbytest-gwt" />
+        </modules>
+      </facet-type>
+      <facet-type id="gwt">
+        <modules>
+          <module name="webbytest-gwt">
+            <files>
+              <file url="file://$PROJECT_DIR$/webbytest-gwt/src/main/java/webbytest/gwt/Client.gwt.xml" />
+              <file url="file://$PROJECT_DIR$/webbytest-gwt/war/WEB-INF/classes/webbytest/gwt/Client.gwt.xml" />
+            </files>
+          </module>
+          <module name="untitled">
+            <files>
+              <file url="file://$PROJECT_DIR$/untitled/src/main/java/bar/Test.gwt.xml" />
+            </files>
+          </module>
+        </modules>
+      </facet-type>
+    </autodetection-disabled>
+  </component>
   <component name="FireworksProject">
     <option name="expectedTestCaseNameRegex" value=".*Test" />
     <option name="maxMemory" value="" />
@@ -34,6 +58,14 @@
     <option name="HEAP_SIZE" />
     <option name="LOCALE" />
     <option name="OPEN_IN_BROWSER" value="true" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/webbytest-gwt/pom.xml" />
+        <option value="$PROJECT_DIR$/webbytest-gwt/pom.xml" />
+      </list>
+    </option>
   </component>
   <component name="ProjectDetails">
     <option name="projectName" value="sbtweb" />

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/webbytest.iml" filepath="$PROJECT_DIR$/webbytest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webbytest-gwt/webbytest-gwt.iml" filepath="$PROJECT_DIR$/webbytest-gwt/webbytest-gwt.iml" />
     </modules>
   </component>
 </project>

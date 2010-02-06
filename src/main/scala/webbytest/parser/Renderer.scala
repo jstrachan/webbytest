@@ -49,6 +49,7 @@ class Renderer {
 
     <html>
       <head>
+        <script type="text/javascript" language="javascript" src="webbytest.nocache.js"></script>
         {css}
       </head>
       <body>
@@ -119,13 +120,7 @@ class Renderer {
     val fullFileName = s.getFileName
     val methodCall = s.getClassName + "." + s.getMethodName + "(" + s.getFileName + ":" + s.getLineNumber + ") "
 
-    <li>{methodCall} <img class="ide-icon tb_right_mid"
-                   id={"ide-" + s.hashCode}
-                   title={"Open file " + fullFileName + " in IDE"}
-                   onclick={"this.src='http://localhost:51235/file?file=" + fullFileName + "&line=" + idePluginLine(s.getLineNumber) + "&id=' + Math.floor(Math.random()*1000);"}
-                   alt="Open in IDE"
-                   src={"http://localhost:" + idePluginPort + "/icon"}/>
-      </li>
+    <li class="stacktrace" file={fullFileName} line={""+s.getLineNumber}>{methodCall}</li>
   }
 
   def errorCausedBy(error: Throwable): Seq[Node] = {
@@ -154,21 +149,10 @@ class Renderer {
 
   def renderLine(line: OutputLine): Seq[Node] = line match {
     case s: StackTrace => val fullFileName = s.fullFileName
+    <span class="stacktrace" file={fullFileName} line={s.line}>
+      Text(s.methodCall + "(" + s.fileName + ":" + s.line + ") ") :: Nil
+    </span>
 
-    Text(s.methodCall + "(" + s.fileName + ":" + s.line + ") ") ::
-              <img class="ide-icon tb_right_mid"
-                   id={"ide-" + s.hashCode}
-                   title={"Open file " + fullFileName + " in IDE"}
-                   onclick={"this.src='http://localhost:51235/file?file=" + fullFileName + "&line=" + idePluginLine(s.line) + "&id=' + Math.floor(Math.random()*1000);"}
-                   alt="Open in IDE"
-                   src={"http://localhost:" + idePluginPort + "/icon"}/> :: Nil
-
-    /*
-        case s: StackTrace => Text(s.methodCall + "(") ::
-                <a href={sourceUrl(s.packageName, s.fileName, s.line).trim()}>{s.fileName}</a> ::
-                Text(":" + s.line + ")") :: Nil
-
-    */
     case w: WrapLine => (Text(w.prefix + " ") :: Nil) ++ renderLine(w.line) ++ (Text(" " + w.postfix) :: Nil)
 
     case l: LogLine => <span class={l.level}>[
