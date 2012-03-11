@@ -18,7 +18,7 @@ First you need to build it locally (we'll have it hosted on a maven repo soon!)
     update
     publish-local
 
-You're local repository should now include the local build of WebbyTest
+Your local repository should now include the local build of WebbyTest
 
 
 Using WebbyTest in your sbt build
